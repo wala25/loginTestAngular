@@ -1,0 +1,33 @@
+
+    <form  [formGroup]="SignUp">
+       <h3>SignUp</h3>
+       <input type="text" formControlName="name" autocomplete="name" placeholder="Name">
+       <input type="email" formControlName="email" autocomplete="email" placeholder="Email">
+       <input type="password" formControlName="password" autocomplete="new-password" placeholder="Password">
+       <div>
+         <button type="button" (click)="submitSignUp()" [disabled]='loading'>submit</button>
+       </div>
+       <p *ngFor="let m of message" [style.color]="error?'red':'green'">{{m}}</p>
+    </form>
+
+
+<div class="connect">
+    <form [formGroup]="LogIn">
+      <h3>LogIn</h3>
+      <input type="email" formControlName="email" autocomplete="email" placeholder="Email">
+      <input type="password" formControlName="password" autocomplete="password" placeholder="Password" >
+      <div>
+         <button type="button" (click)="connect()" [disabled]='loading'>Connect</button>
+      </div>
+      <p [style.color]="'red'">{{err}}</p>
+    </form>
+  <div class="user" >
+     <h3 *ngIf="userName.length>0" style="color: green;">Bonjour {{userName}}</h3>
+     <h3 *ngIf="userName.length===0" style="color: red;">Disconnected</h3>
+     <div>
+      <button type="button" *ngIf="userName.length>0" (click)="disconnect()" [disabled]='loading'>Logout</button>
+   </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
