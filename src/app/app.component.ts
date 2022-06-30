@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class AppComponent implements OnInit{
   title = 'angular-test';
  constructor(private http: HttpClient){}
-
+apiAdress=environment.apiAdress;
 SignUp=new FormGroup({
   name:new FormControl(''),
   email:new FormControl(''),
@@ -28,7 +29,7 @@ submitSignUp(){if (!this.loading)
   {this.message=new Array;
     this.error=false
     this.loading=true;
-  this.http.post("http://localhost:3000/signup",this.SignUp.value,{withCredentials:true}).subscribe({
+  this.http.post(this.apiAdress+"signup",this.SignUp.value,{withCredentials:true}).subscribe({
     next:(res)=>{this.SignUp.reset();
                  this.loading=false;
                  this.message=['Created']},
@@ -45,7 +46,7 @@ connect(){if (!this.loading)
   {this.userName=new String;
     this.err=new String;
     this.loading=true;
-    this.http.post("http://localhost:3000/login",this.LogIn.value,{withCredentials:true}).subscribe({
+    this.http.post(this.apiAdress+"login",this.LogIn.value,{withCredentials:true}).subscribe({
       next:(res:any)=>{this.LogIn.reset();
              this.loading=false;
              this.userName=res},
@@ -55,14 +56,14 @@ connect(){if (!this.loading)
 }
 
 disconnect(){this.loading=true;
-  this.http.get("http://localhost:3000/disconnect",{withCredentials:true}).subscribe({
+  this.http.get(this.apiAdress+"disconnect",{withCredentials:true}).subscribe({
       next:()=>{this.loading=false;
              this.userName=new String}
          })
 }
 
 check(){this.loading=true;
-  this.http.get("http://localhost:3000/check",{withCredentials:true}).subscribe({
+  this.http.get(this.apiAdress+"check",{withCredentials:true}).subscribe({
       next:(res:any)=>{this.loading=false;
              this.userName=res},
       error:(e)=>{this.loading=false;}
