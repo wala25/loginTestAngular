@@ -1,7 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-
-
 import { webSocket } from 'rxjs/webSocket';
 import { environment } from 'src/environments/environment';
 @Component({
@@ -31,7 +29,8 @@ this.m.reset()
     this.wss.subscribe({
       next:(m:any)=>{this.arr.push(m.message);console.log(m)}
       ,
-      error:(e:any)=>{console.log(e)}
+      error:(e:any)=>{console.log('error',e)},
+      complete:()=>{console.log('end')}
     }
       );
     
